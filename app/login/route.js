@@ -7,11 +7,10 @@ export default Ember.Route.extend({
       this.store.query('user', {
         name: userName
       }).then((users) => {
-        console.log(users)
         if(users.get('length') === 1){
           let user = users.objectAt(0);
           this.controllerFor('application').set('user', user);
-          this.transitionTo('notebooks');
+          this.transitionTo('notebooks', user.get('id'));
         } else {
           this.controller.set('message', `user ${userName} not found`)
         }
